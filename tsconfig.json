@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./out",
+    "strict": true,
+    "esModuleInterop": true,
+    "strictNullChecks": false
+  }
+}
