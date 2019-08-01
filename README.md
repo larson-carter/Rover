@@ -1,12 +1,12 @@
 # Rover
-A generation 2 server (scraper/crawler) for ApolloTV
+A 2nd generation server (scraper/crawler) for ApolloTV
 
 ## Get Started
 1. Install the necessary dependencies; `npm install`
 2. Run the application; `npm start`
 
 ## Configuration
-Refer to `./config.ts` (copy from default template - `config.ts.dist`)
+Refer to `./config/config.ts` (you can copy the default template - `./config/config.dist.ts`)
 
 ## Terms and Architecture
 Content is discovered by searching 'indexes' which list 'hosts' that serve that content. By default, Rover searches all relevant indexes for hosts.
@@ -15,6 +15,7 @@ Content is discovered by searching 'indexes' which list 'hosts' that serve that 
 ```bash
     .
     ├── api/                    # API endpoints for the web, including socket APIs.
+    ├──── v2/                     # All 'API version 2' methods and endpoints go here.
     ├── docs/                   # Documentation files
     ├── lib/                    # All hosts and indexes (essentially anything pertaining to third parties goes here).
     ├── tests/                  # Automated tests. (Currently unused)

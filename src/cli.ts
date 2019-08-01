@@ -31,6 +31,12 @@ export default class CLI {
             .setVersion(this.CLI_VERSION)
             .setInfo("Interactive shell environment for ApolloTV Rover Scraper and Crawler Software")
             .setDelimiter("$ ")
+            .addCommand('clear', {
+                description: "Clears the console.",
+                action: (params, options) => {
+                    console.clear();
+                }
+            })
             .addCommand('close-cli', {
                 description: "Closes the Rover CLI. Useful for debugging or process managers.",
                 action: (params, options) => {

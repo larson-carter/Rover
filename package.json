@@ -2,7 +2,7 @@
   "name": "rover",
   "version": "1.0.0",
   "description": "A generation 2 server (scraper) for ApolloTV",
-  "main": "main.ts",
+  "main": "src/main.ts",
   "scripts": {
     "prestart": "npm run prepare",
     "start": "node out/main.js",
@@ -29,6 +29,8 @@
   "homepage": "https://github.com/ApolloTVofficial/Rover#readme",
   "dependencies": {
     "@types/figlet": "^1.2.0",
+    "@types/response-time": "^2.3.3",
+    "@types/sntp": "^3.0.0",
     "center-align": "^1.0.1",
     "chalk": "^2.4.2",
     "cliffy": "^2.0.6",
@@ -36,6 +38,9 @@
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
     "figlet": "^1.2.3",
+    "os-utils": "0.0.14",
+    "response-time": "^2.3.2",
+    "sntp": "^3.0.2",
     "typescript": "^3.5.3"
   },
   "devDependencies": {
