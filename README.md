@@ -53,8 +53,9 @@ $ npm run dev -- -- --no-cli
 ### Disabling the REPL/CLI
 `--no-repl` or `--no-cli`
 
-> Rover attempts to make the CLI more colorful and provides a REPL to allow you to perform actions with Rover directly from the command line.
->If you don't want the REPL - perhaps because you're parsing log output - you can pass either the argument `--no-repl` or `--no-cli` and the REPL will be disabled.
+> Rover has some aspects that make the CLI more human-readable, it also provides a REPL to allow you to perform actions with Rover directly from the command line.
+> 
+>If you don't want or need the REPL - perhaps because you're parsing log output - you can pass `--no-repl` or `--no-cli` and both the REPL and CLI enhancements will be disabled.
 
 ## Developers: Application Properties
 Application properties are set, retrieved and updated by using the appropriate methods on the `Application` singleton.  
