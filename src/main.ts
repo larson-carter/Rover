@@ -13,6 +13,10 @@ const pkg = require('../package.json');
 
 (async function(){
 
+    if(!Application.hasArgument('--no-clear')){
+        console.clear();
+    }
+
     if(Application.isCliEnabled()) await cli.welcome();
     const enableRequestLogging = Application.hasArgument('--enable-logging');
 

@@ -49,7 +49,7 @@ export default class Application {
     }
 
     public static isCliEnabled() : boolean {
-        return !this.hasArgument("--no-cli");
+        return !this.hasArgument("--no-cli") && !this.hasArgument("--no-repl");
     }
 
 }

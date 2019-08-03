@@ -33,6 +33,7 @@
     "@types/sntp": "^3.0.0",
     "center-align": "^1.0.1",
     "chalk": "^2.4.2",
+    "chalk-table": "^1.0.2",
     "cliffy": "^2.0.6",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",

@@ -132,5 +132,8 @@ jspm_packages/
 # dotenv environment variables file
 .env
 
+# Exclude generated files
+out
+
 # Rover files
 config.ts

@@ -16,6 +16,7 @@ Content is discovered by searching 'indexes' which list 'hosts' that serve that 
     .
     ├── api/                    # API endpoints for the web, including socket APIs.
     ├──── v2/                   #   All 'API version 2' methods and endpoints go here.
+    ├── config/                 # Configuration files
     ├── docs/                   # Documentation files
     ├── lib/                    # All hosts and indexes (essentially anything pertaining to third parties goes here).
     ├── tests/                  # Automated tests. (Currently unused)
@@ -39,15 +40,21 @@ and if you want to disable the CLI in development mode, you can do the following
 $ npm run dev -- -- --no-cli
 ```
 
+### Preventing console clear on startup
+`--no-clear`
+
+> For readability, Rover clears the console on startup. If you'd prefer otherwise, you can use `--no-clear`.
+
 ### Enabling request logging
 `--enable-logging`
 
 > If you'd like to log all requests made to the webserver, you can use the argument `--enable-logging`.
 
-### Disabling the CLI
-`--no-cli`
+### Disabling the REPL/CLI
+`--no-repl` or `--no-cli`
 
-> If you don't want the CLI - perhaps because you're parsing log output - you can pass the argument `--no-cli` and the CLI will be disabled.
+> Rover attempts to make the CLI more colorful and provides a REPL to allow you to perform actions with Rover directly from the command line.
+>If you don't want the REPL - perhaps because you're parsing log output - you can pass either the argument `--no-repl` or `--no-cli` and the REPL will be disabled.
 
 ## Developers: Application Properties
 Application properties are set, retrieved and updated by using the appropriate methods on the `Application` singleton.  

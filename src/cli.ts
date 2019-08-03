@@ -1,7 +1,11 @@
+import Application from "./application";
+
 const center = (text: String) => require('center-align')(text, process.stdout.columns);
 import chalk from 'chalk';
 import { CLI as Cliffy } from 'cliffy';
 import figlet from 'figlet';
+
+const chalkTable = require('chalk-table');
 
 const pkg = require('../package.json');
 
@@ -36,7 +40,16 @@ export default class CLI {
             .addCommand('stats', {
                 description: "Shows statistics about Rover, such as number of connected clients.",
                 action: (params, options) => {
-
+                    console.log("");
+                    console.log(chalkTable(
+                        { leftPad: 2, columns: [
+                            { field: "key", name: chalk.red.bold("Key") },
+                            { field: "value", name: "Value" }
+                        ] },
+                        [
+                            { key: chalk.redBright.bold("Active Socket Connections: "), value: Application.get('activeConnections') }
+                        ]
+                    ));
                 }
             })
             .addCommand('clear', {
@@ -46,7 +59,7 @@ export default class CLI {
                 }
             })
             .addCommand('close-cli', {
-                description: "Closes the Rover CLI. Useful for debugging or process managers.",
+                description: "Closes the Rover CLI. Useful for debugging or process managers. (CAUTION: In some cases, this can make the console ignore all input.)",
                 action: (params, options) => {
                     cliffy.hide();
                 }
