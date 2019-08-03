@@ -4,3 +4,6 @@ dist: trusty
 language: node_js
 node_js:
   - "12"
+
+before_install:
+  - cp config/config.dist.ts config/config.ts
