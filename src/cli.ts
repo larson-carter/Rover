@@ -3,10 +3,12 @@ import chalk from 'chalk';
 import { CLI as Cliffy } from 'cliffy';
 import figlet from 'figlet';
 
+const pkg = require('../package.json');
+
 export default class CLI {
 
     static readonly CLI_NAME = "Rover CLI";
-    static readonly CLI_VERSION = "v1.0.0";
+    static readonly CLI_VERSION = "v" + pkg.version;
 
     static async welcome() {
         console.log("");
@@ -15,7 +17,7 @@ export default class CLI {
         console.log(chalk.red(center(figlet.textSync('Rover', {
             font: 'Basic'
         }))));
-        console.log(center("Scraper and Crawler Software"));
+        console.log(center(pkg.description));
         console.log(center("- by ApolloTV -"));
 
         console.log("");
@@ -31,6 +33,12 @@ export default class CLI {
             .setVersion(this.CLI_VERSION)
             .setInfo("Interactive shell environment for ApolloTV Rover Scraper and Crawler Software")
             .setDelimiter("$ ")
+            .addCommand('stats', {
+                description: "Shows statistics about Rover, such as number of connected clients.",
+                action: (params, options) => {
+
+                }
+            })
             .addCommand('clear', {
                 description: "Clears the console.",
                 action: (params, options) => {

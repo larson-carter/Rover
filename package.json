@@ -1,7 +1,7 @@
 {
   "name": "rover",
   "version": "1.0.0",
-  "description": "A generation 2 server (scraper) for ApolloTV",
+  "description": "The Next Generation Scraper and Crawler Software",
   "main": "src/main.ts",
   "scripts": {
     "prestart": "npm run prepare",
@@ -41,12 +41,14 @@
     "os-utils": "0.0.14",
     "response-time": "^2.3.2",
     "sntp": "^3.0.2",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "ws": "^7.1.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.0",
     "@types/node": "^12.0.12",
     "@types/pino": "^5.8.8",
+    "@types/ws": "^6.0.1",
     "nodemon": "^1.19.1",
     "pino-pretty": "^3.2.0",
     "ts-node": "^8.3.0"
