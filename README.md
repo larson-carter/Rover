@@ -1,4 +1,6 @@
 # Rover
+[![Build Status](https://travis-ci.com/ApolloTVofficial/Rover.svg?branch=master)](https://travis-ci.com/ApolloTVofficial/Rover)
+
 The Next Generation Scraper and Crawler Software by ApolloTV
 
 ## Get Started
