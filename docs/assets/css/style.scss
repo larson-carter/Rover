@@ -1,0 +1,135 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+@font-face {
+  font-family: "Glacial Indifference";
+  src: url("/assets/fonts/GlacialIndifference-Regular.otf");
+}
+
+@font-face {
+  font-family: "Futura";
+  src: url("/assets/fonts/futura-light.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Futura";
+  src: url("/assets/fonts/futura.ttf");
+  font-weight: bold;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  opacity: 1 !important;
+  user-select: none;
+  font-family: "Futura", "Open Sans", sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: "Glacial Indifference", "Open Sans", sans-serif;
+}
+
+header.page-header {
+  background-attachment: fixed;
+
+  .project-icon {
+    height: 128px;
+    margin-bottom: 32px;
+  }
+}
+
+#skip-to-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+
+  &:focus {
+    opacity: 1;
+    color: white;
+  }
+}
+
+.back-link {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: inline-block;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      span { text-decoration: underline; }
+      svg {
+        left: -5px;
+      }
+    }
+
+    svg, span {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      color: white;
+      transition: all 0.2s ease-in-out;
+      margin-left: 5px;
+      left: 0;
+    }
+
+    span {
+      margin-left: 10px;
+    }
+  }
+}
+
+.status-icon {
+  fill: #FFFFFF;
+  height: 14pt;
+  vertical-align: text-top;
+}
+
+.gist-meta span:first-child {
+  display: none;
+}
+
+.gist-meta span:last-child {
+  float: left !important;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 5px;
+  right: 35px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 100%;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  height: 60px;
+  width: 60px;
+  z-index: 9999;
+
+  transition: all 0.3s ease-in-out;
+
+  & svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  &.visible {
+    opacity: 1;
+    bottom: 25px;
+    pointer-events: all;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

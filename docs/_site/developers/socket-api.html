@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Socket API Documentation | Rover</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Socket API Documentation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Next Generation Scraper and Crawler Software by ApolloTV" />
+<meta property="og:description" content="The Next Generation Scraper and Crawler Software by ApolloTV" />
+<link rel="canonical" href="http://localhost:4000/developers/socket-api.html" />
+<meta property="og:url" content="http://localhost:4000/developers/socket-api.html" />
+<meta property="og:site_name" content="Rover" />
+<script type="application/ld+json">
+{"description":"The Next Generation Scraper and Crawler Software by ApolloTV","@type":"WebPage","url":"http://localhost:4000/developers/socket-api.html","headline":"Socket API Documentation","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=0d37611b6ef018ac0b0304ac23afa7232df2dc4c">
+</head>
+<body style="opacity:0;">
+<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+<header class="page-header" role="banner">
+    <div class="back-link">
+        <a href="/" aria-labelledby="back-link-label">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke="#FFFFFF" fill="#FFFFFF"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
+            <span id="back-link-label">Back to Home</span>
+        </a>
+    </div>
+    <img class="project-icon" src="/assets/icon.png">
+    <h1 class="project-name">Socket API Documentation</h1>
+    
+</header>
+
+<main id="content" class="main-content" role="main">
+    <h2>Table of Contents</h2>
+    <ul>
+  <li><a href="#rovers-socket-api">Rover’s Socket API</a></li>
+  <li><a href="#authentication">Authentication</a></li>
+</ul>
+    <h2 id="rovers-socket-api">Rover’s Socket API</h2>
+<p>This page documents ApolloTV’s specific implementation of <a href="/specification/rsp/">Rover Socket Protocol (RSP)</a> in Rover.
+This does not detail any of the advantages of RSP and only refers to RSP in the context of implementation. You should check <a href="/specification/rsp/">the page for RSP</a> for more information about the protocol.</p>
+
+<h2 id="authentication">Authentication</h2>
+
+
+    <footer class="site-footer">
+        
+        <span class="site-footer-owner"><a href="https://github.com/ApolloTVofficial/Rover">Rover</a> is maintained by <a href="https://github.com/ApolloTVofficial">ApolloTVofficial</a>.</span>
+        
+        <i>If you've spotted a mistake or would like to add to the documentation, you can <a href="https://github.com/ApolloTVofficial/Rover/pulls" target="_blank">submit a pull request</a>.</i>
+    </footer>
+</main>
+
+<div class="scroll-to-top" aria-label="Scroll to top" role="button">
+    <svg fill="#FFFFFF" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
+</div>
+
+<script>
+    var kScrolledDown = 70;
+
+    document.querySelectorAll("img:not(.draggable), a:not(.draggable)").forEach(function(element){
+        element.ondragstart = function(event){ event.preventDefault(); }
+    });
+
+    if(document.querySelectorAll(".scroll-to-top").length > 0) {
+        document.addEventListener('scroll', function (event) {
+            if (window.scrollY < kScrolledDown) {
+                document.querySelectorAll(".scroll-to-top").forEach(function (element) {
+                    element.classList.remove("visible")
+                });
+            } else {
+                document.querySelectorAll(".scroll-to-top").forEach(function (element) {
+                    element.classList.add("visible")
+                });
+            }
+        });
+
+        document.querySelectorAll(".scroll-to-top").forEach(function(element){
+            element.addEventListener('click', function(event){
+                event.preventDefault();
+                window.scrollTo(0, 0);
+            });
+        });
+    }
+</script>
+</body>
+</html>

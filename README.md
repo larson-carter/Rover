@@ -1,7 +1,11 @@
 # Rover
 [![Build Status](https://travis-ci.com/ApolloTVofficial/Rover.svg?branch=master)](https://travis-ci.com/ApolloTVofficial/Rover)
 
-The Next Generation Scraper and Crawler Software by ApolloTV
+The Next Generation Scraper and Crawler Software by ApolloTV.
+
+## Documentation
+**This README is a simple overview of the project and a skim guide for developers.**
+If you want the full documentation, visit the documentation site for Rover: https://rover.apollotv.xyz/
 
 ## Get Started
 1. Install the necessary dependencies; `npm install`
@@ -21,9 +25,9 @@ Content is discovered by searching 'indexes' which list 'hosts' that serve that 
     ├── config/                 # Configuration files
     ├── docs/                   # Documentation files
     ├── lib/                    # All hosts and indexes (essentially anything pertaining to third parties goes here).
-    ├── tests/                  # Automated tests. (Currently unused)
     ├── src/                    # TypeScript code pertaining to the application itself.
     ├── out/                    # Generated code ready to be executed by the JavaScript interpreter.
+    ├── tests/                  # Automated tests. (Currently unused)
     ├── LICENSE
     └── README.md
 ```

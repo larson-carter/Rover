@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Rover Socket Protocol | Rover</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Rover Socket Protocol" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Next Generation Scraper and Crawler Software by ApolloTV" />
+<meta property="og:description" content="The Next Generation Scraper and Crawler Software by ApolloTV" />
+<link rel="canonical" href="http://localhost:4000/specification/rsp.html" />
+<meta property="og:url" content="http://localhost:4000/specification/rsp.html" />
+<meta property="og:site_name" content="Rover" />
+<script type="application/ld+json">
+{"description":"The Next Generation Scraper and Crawler Software by ApolloTV","@type":"WebPage","url":"http://localhost:4000/specification/rsp.html","headline":"Rover Socket Protocol","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=0d37611b6ef018ac0b0304ac23afa7232df2dc4c">
+</head>
+<body style="opacity:0;">
+<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+<header class="page-header" role="banner">
+    <div class="back-link">
+        <a href="/" aria-labelledby="back-link-label">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke="#FFFFFF" fill="#FFFFFF"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
+            <span id="back-link-label">Back to Home</span>
+        </a>
+    </div>
+    <img class="project-icon" src="/assets/icon.png">
+    <h1 class="project-name">Rover Socket Protocol</h1>
+    
+    <p><p><strong>Protocol Version:</strong> 2.0.0 (August 4th 2019)</p>
+</p>
+    
+</header>
+
+<main id="content" class="main-content" role="main">
+    <h2>Table of Contents</h2>
+    <ul>
+  <li><a href="#rover-socket-protocol-rsp">Rover Socket Protocol (RSP)</a></li>
+  <li><a href="#commands">Commands</a></li>
+  <li><a href="#content-request">Content Request</a></li>
+  <li><a href="#content-schema">Content Schema</a>
+    <ul>
+      <li><a href="#getting-a-list-of-schemas">Getting a list of schemas</a></li>
+    </ul>
+  </li>
+</ul>
+    <h2 id="rover-socket-protocol-rsp">Rover Socket Protocol (RSP)</h2>
+
+<p>The WebSocket protocol allows for fast impromptu messaging (a basic requirement given the delay and lack of dependability in retrieving data from various sources).
+RSP is built on the WebSocket protocol.</p>
+
+<p>RSP is a protocol that allows a client to request a specific file or resource from one or multiple servers without knowing where or on which server the data is stored.</p>
+<blockquote>
+  <p>NOTE: This protocol is not inherently designed or intended for search. The idea is that the client is already aware of the content - just not where the content is found.</p>
+</blockquote>
+
+<h2 id="commands">Commands</h2>
+<p>Here is a table of valid commands and descriptions:</p>
+
+<table>
+    <thead>
+        <th>Command</th>
+        <th>Description</th>
+    </thead>
+    <tbody>
+        <td><code>schemas.get</code></td>
+        <td>Used to request a list of schemas from a server that it supports.</td>
+    </tbody>
+</table>
+
+<h2 id="content-request">Content Request</h2>
+<p>To get content from a server implementing RSP, you first submit a <em>‘content request’</em> to the server. This is a JSON structure that defines the stipulations that must be met by any content returned by the server.</p>
+
+<p>The fields in a content request are declared in a <em>‘content schema’</em> (see <a href="#declaring-a-content-schema">Content Schema</a>).</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// This is the content schema, this defines all of the valid fields.</span>
+  <span class="c1">//</span>
+  <span class="c1">// The name for the schema field is prefixed with an '@' symbol.</span>
+  <span class="c1">// This shows that it is a field that *does not* pertain to the content itself.</span>
+  <span class="s2">"@schema"</span><span class="p">:</span> <span class="s2">"https://rover.apollotv.xyz/schema/Movie"</span><span class="p">,</span>
+
+  <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Django Unchained"</span><span class="p">,</span>
+  <span class="s2">"year"</span><span class="p">:</span> <span class="mi">2014</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<blockquote>
+  <p>Comments should not be included in the actual content request as it conforms to regular JSON standards. We’re using <a href="https://json5.org/">JSON5</a> for the documentation for readability, however implementations of JSON5 are not generally available enough to use in the protocol.</p>
+</blockquote>
+
+<h2 id="content-schema">Content Schema</h2>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// This is the name of the type defined by the schema.</span>
+  <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"Movie"</span><span class="p">,</span>
+
+  <span class="s2">"fields"</span><span class="p">:</span> <span class="p">{</span>
+
+    <span class="s2">"title"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"The title of the movie."</span><span class="p">,</span>
+
+      <span class="c1">// If a field is required, it must be present AND non-null.</span>
+      <span class="s2">"required"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+
+      <span class="c1">// Valid types include: string|number|object|array|boolean</span>
+      <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"string"</span>
+    <span class="p">}</span>
+
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="getting-a-list-of-schemas">Getting a list of schemas</h3>
+<p>To obtain a list of all schemas that an RSP server support, the following request should be made:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="s2">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"schemas.get"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The server should respond to this request with a JSON object containing an array of schema URLs supported by the server named ‘schemas’:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"schemas.get"</span><span class="p">,</span><span class="w">
+
+  </span><span class="s2">"schemas"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"https://rover.apollotv.xyz/schema/Movie"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"https://rover.apollotv.xyz/schema/TVShow"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+
+    <footer class="site-footer">
+        
+        <span class="site-footer-owner"><a href="https://github.com/ApolloTVofficial/Rover">Rover</a> is maintained by <a href="https://github.com/ApolloTVofficial">ApolloTVofficial</a>.</span>
+        
+        <i>If you've spotted a mistake or would like to add to the documentation, you can <a href="https://github.com/ApolloTVofficial/Rover/pulls" target="_blank">submit a pull request</a>.</i>
+    </footer>
+</main>
+
+<div class="scroll-to-top" aria-label="Scroll to top" role="button">
+    <svg fill="#FFFFFF" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
+</div>
+
+<script>
+    var kScrolledDown = 70;
+
+    document.querySelectorAll("img:not(.draggable), a:not(.draggable)").forEach(function(element){
+        element.ondragstart = function(event){ event.preventDefault(); }
+    });
+
+    if(document.querySelectorAll(".scroll-to-top").length > 0) {
+        document.addEventListener('scroll', function (event) {
+            if (window.scrollY < kScrolledDown) {
+                document.querySelectorAll(".scroll-to-top").forEach(function (element) {
+                    element.classList.remove("visible")
+                });
+            } else {
+                document.querySelectorAll(".scroll-to-top").forEach(function (element) {
+                    element.classList.add("visible")
+                });
+            }
+        });
+
+        document.querySelectorAll(".scroll-to-top").forEach(function(element){
+            element.addEventListener('click', function(event){
+                event.preventDefault();
+                window.scrollTo(0, 0);
+            });
+        });
+    }
+</script>
+</body>
+</html>

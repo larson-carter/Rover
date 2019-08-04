@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+<head>
+    <meta charset="UTF-8">
+
+    {% seo %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+</head>
+<body style="opacity:0;">
+<a id="skip-to-content" href="#content">Skip to the content.</a>
+
+<header class="page-header" role="banner">
+    <div class="back-link">
+        <a href="/" aria-labelledby="back-link-label">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke="#FFFFFF" fill="#FFFFFF"><path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"/></svg>
+            <span id="back-link-label">Back to Home</span>
+        </a>
+    </div>
+    <img class="project-icon" src="/assets/icon.png">
+    <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
+    {% if page.subtitle %}
+    <p>{{ page.subtitle | markdownify }}</p>
+    {% endif %}
+</header>
+
+<main id="content" class="main-content" role="main">
+    <h2>Table of Contents</h2>
+    {% include toc.html html=content h_min=2 %}
+    {{ content }}
+
+    <footer class="site-footer">
+        {% if site.github.is_project_page %}
+        <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+        {% endif %}
+        <i>If you've spotted a mistake or would like to add to the documentation, you can <a href="https://github.com/ApolloTVofficial/Rover/pulls" target="_blank">submit a pull request</a>.</i>
+    </footer>
+</main>
+
+{% include footer.html %}
+</body>
+</html>

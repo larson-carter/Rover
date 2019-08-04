@@ -1,0 +1,32 @@
+<div class="scroll-to-top" aria-label="Scroll to top" role="button">
+    <svg fill="#FFFFFF" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
+</div>
+
+<script>
+    var kScrolledDown = 70;
+
+    document.querySelectorAll("img:not(.draggable), a:not(.draggable)").forEach(function(element){
+        element.ondragstart = function(event){ event.preventDefault(); }
+    });
+
+    if(document.querySelectorAll(".scroll-to-top").length > 0) {
+        document.addEventListener('scroll', function (event) {
+            if (window.scrollY < kScrolledDown) {
+                document.querySelectorAll(".scroll-to-top").forEach(function (element) {
+                    element.classList.remove("visible")
+                });
+            } else {
+                document.querySelectorAll(".scroll-to-top").forEach(function (element) {
+                    element.classList.add("visible")
+                });
+            }
+        });
+
+        document.querySelectorAll(".scroll-to-top").forEach(function(element){
+            element.addEventListener('click', function(event){
+                event.preventDefault();
+                window.scrollTo(0, 0);
+            });
+        });
+    }
+</script>

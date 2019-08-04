@@ -1,0 +1,6 @@
+{% assign difficulties = "Trivial, Easy, Novice, Advanced, Expert" | split: ", " %}
+
+{% assign index = page.difficulty %}
+{% assign index = index | minus: 1 %}
+
+{{ difficulties[index] }}

@@ -18,7 +18,7 @@ export default class CLI {
         console.log("");
         console.log("");
 
-        console.log(chalk.red(center(figlet.textSync('Rover', {
+        console.log(chalk.greenBright(center(figlet.textSync('Rover', {
             font: 'Basic'
         }))));
         console.log(center(pkg.description));
@@ -43,11 +43,11 @@ export default class CLI {
                     console.log("");
                     console.log(chalkTable(
                         { leftPad: 2, columns: [
-                            { field: "key", name: chalk.red.bold("Key") },
+                            { field: "key", name: chalk.green.bold("Key") },
                             { field: "value", name: "Value" }
                         ] },
                         [
-                            { key: chalk.redBright.bold("Active Socket Connections: "), value: Application.get('activeConnections') }
+                            { key: chalk.greenBright.bold("Active Socket Connections: "), value: Application.get('activeConnections') }
                         ]
                     ));
                 }
