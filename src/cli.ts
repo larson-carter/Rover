@@ -1,18 +1,19 @@
-import Application from "./application";
+import Application, {Utility} from "./application";
+import chalk from 'chalk';
+import {CLI as Cliffy} from 'cliffy';
+import figlet from 'figlet';
+import Ora from 'ora';
+import packageMeta from '../package.json';
+import P = require("pino");
 
 const center = (text: String) => require('center-align')(text, process.stdout.columns);
-import chalk from 'chalk';
-import { CLI as Cliffy } from 'cliffy';
-import figlet from 'figlet';
 
 const chalkTable = require('chalk-table');
-
-const pkg = require('../package.json');
 
 export default class CLI {
 
     static readonly CLI_NAME = "Rover CLI";
-    static readonly CLI_VERSION = "v" + pkg.version;
+    static readonly CLI_VERSION = "v" + packageMeta.version;
 
     static async welcome() {
         console.log("");
@@ -21,11 +22,49 @@ export default class CLI {
         console.log(chalk.greenBright(center(figlet.textSync('Rover', {
             font: 'Basic'
         }))));
-        console.log(center(pkg.description));
+        console.log(center(packageMeta.description));
         console.log(center("- by ApolloTV -"));
 
         console.log("");
         console.log("");
+    }
+
+    /**
+     * Performs an asynchronous action (promise), whilst displaying a message and progress indicator in the CLI.
+     * If the CLI is turned off the message will simply be logged before and after the action using the application
+     * logger.
+     *
+     * @param action The action you wish to perform whilst showing a progress indicator.
+     * @param message The message that should display next to the progress indicator.
+     */
+    static async withProgressIndicator(action: (ora: Ora.Ora) => void, message: string = "Loading, please wait..."){
+        const logger = Application.getUtility<P.Logger>(Utility.Logger);
+        let progressIndicator : Ora.Ora;
+        if(Application.isCliEnabled()){
+            progressIndicator = Ora({
+                spinner: 'bouncingBar',
+                color: 'white'
+            }).start(message);
+        }
+
+        let success : boolean = true;
+        try {
+            await action(progressIndicator);
+        } catch(ex) {
+            progressIndicator.stop();
+            logger.error(ex.message);
+            success = false;
+        }
+
+        if(Application.isCliEnabled()){
+            progressIndicator.stop();
+            if(success) return progressIndicator.succeed(message);
+            progressIndicator.fail(message);
+            return;
+        }
+
+        if(success) logger.info(`[COMPLETE] ${message}`);
+        else logger.error(`[COMPLETE] ${message}`);
     }
 
     static async initialize(){

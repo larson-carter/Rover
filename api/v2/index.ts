@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import sntp from 'sntp';
-const os = require('os-utils');
+import Application from "../../src/application";
+const OSUtils = require('os-utils');
 
-function success(data: any, message: String){
+function success(data: any, message: String) : object {
     if(data == null) data = {};
     delete data.success;
     delete data.message;
@@ -14,7 +15,7 @@ function success(data: any, message: String){
     }, data);
 }
 
-function fail(error: String, message: String){
+function fail(error: String, message: String) : object {
     return {
         success: false,
         error,
@@ -44,16 +45,65 @@ export default function() {
     });
 
     router.get('/status', async (req, res) => {
-        os.cpuUsage((usage: number) => {
-            res.json(success({
-                load: Number(usage * 100).toFixed(2)
-            }, usage < 0.8
-                ? "Rover appears to be functioning as intended."
-                : "Rover is experiencing high CPU usage. Perhaps there is high load on this machine, or a problem with Rover."
-            ));
+        let cpuUsage = await new Promise<number>((resolve, reject) => {
+            OSUtils.cpuUsage((value: number) => resolve(value));
         });
+
+        let status = {
+            modules: (() => {
+                let modules : any = {};
+
+                Application.getAllModules().forEach((module) => {
+                    if(modules[module.getAuthor().name] == null) modules[module.getAuthor().name] = {
+                        "_$": {
+                            website: module.getAuthor().website,
+                            count: 0
+                        }
+                    };
+                    if(modules[module.getAuthor().name][module.getType()] == null) modules[module.getAuthor().name][module.getType()] = [];
+
+                    modules[module.getAuthor().name]._$.count += 1;
+                    modules[module.getAuthor().name][module.getType()].push({
+                        name: module.getMeta().name,
+                        version: module.getMeta().version,
+                        description: module.getMeta().description,
+                        status: module.getStatus()
+                    });
+                });
+
+                return modules;
+            })(),
+            load: {
+                cpu: parseFloat(Number(cpuUsage * 100).toFixed(2))
+            },
+            maxLoad: -1,
+            activeConnections: Application.get('activeConnections')
+        };
+
+        // The maximum load of any of status.load - essentially the bottleneck.
+        status.maxLoad = Object.values(status.load).reduce((total, currentElement) => {
+            let current = currentElement;
+            return current > total ? current : total;
+        }, 0);
+
+        let response = success(status, status.maxLoad < 80
+            ? "Rover appears to be functioning as intended."
+            : "Rover is experiencing high load. Perhaps there is high request volume on this machine, or a problem with Rover."
+        );
+
+        if(!!req.query['readable']){
+            res.status(200)
+                .header('Content-Type', 'application/json; charset=utf-8')
+                .send(JSON.stringify(response, null, 4));
+            return;
+        }
+
+        res.json(response);
     });
 
+    router.use((req, res, next) => {
+        res.json(fail("ERR_INVALID_ACTION", "You have not provided a valid action to perform."));
+    });
 
     return router;
 

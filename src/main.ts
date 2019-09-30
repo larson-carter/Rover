@@ -9,7 +9,10 @@ import pino from 'pino';
 import responseTime from 'response-time';
 import * as http from "http";
 
-const pkg = require('../package.json');
+import packageMeta from '../package.json';
+import {Ora} from "ora";
+import Module, {ModuleMetadata} from "./struct/Module";
+import getPrototypeOf = Reflect.getPrototypeOf;
 
 (async function(){
 
@@ -42,13 +45,22 @@ const pkg = require('../package.json');
     app.use(responseTime());
     // Express: output branding headers
     app.use((req, res, next) => {
-        res.set('X-Rover-Version', pkg.version);
+        res.set('X-Rover-Version', packageMeta.version);
         next();
     });
 
     app.all('/', (req, res) => {
         res.redirect(config.application.defaultRedirect);
     });
+
+    /* BEGIN: INITIALIZE ADDITIONAL MODULES */
+    await cli.withProgressIndicator(async (ora: Ora) => {
+        await Application.loadModules('./lib', async (meta: ModuleMetadata, module: Module) => {
+            await ora.succeed(`Initialized ${getPrototypeOf(getPrototypeOf(module)).constructor.name.toLowerCase()} ${meta.name} v${meta.version}.`);
+        });
+    }, `${Application.isCliEnabled() ? "🔍 " : ""}Initializing additional modules...`);
+    logger.info(`${Application.isCliEnabled() ? "🔍 " : ""}${Application.getAllModules().length} additional modules were initialized.`);
+    /* END: INITIALIZE ADDITIONAL MODULES */
 
     /* BEGIN: REGISTERING APIs */
 
@@ -79,7 +91,7 @@ const pkg = require('../package.json');
 
     server.listen(config.server.port || 3000, async () => {
         let enableCli : boolean = Application.isCliEnabled();
-        logger.info(`${enableCli ? "🌐 " : ""}Web endpoints listening on 0.0.0.0:${config.server.port}...`);
+        logger.info(`${enableCli ? "🌐 " : ""}Web server listening on http://0.0.0.0:${config.server.port}/`);
         if(enableCli) await cli.initialize();
     });
 
