@@ -1,4 +1,4 @@
-import config from '../config/config';
+import RoverConfig from '../config/config';
 import api_v2 from '../api/v2';
 import socket_api_v2 from '../api/v2/socket';
 import cli from './cli';
@@ -15,6 +15,8 @@ import Module, {ModuleMetadata} from "./struct/Module";
 import getPrototypeOf = Reflect.getPrototypeOf;
 
 (async function(){
+
+    Application.configure(RoverConfig());
 
     if(!Application.hasArgument('--no-clear')){
         console.clear();
@@ -50,7 +52,7 @@ import getPrototypeOf = Reflect.getPrototypeOf;
     });
 
     app.all('/', (req, res) => {
-        res.redirect(config.application.defaultRedirect);
+        res.redirect(Application.getConfig().application.defaultRedirect);
     });
 
     /* BEGIN: INITIALIZE ADDITIONAL MODULES */
@@ -89,9 +91,9 @@ import getPrototypeOf = Reflect.getPrototypeOf;
         });
     });
 
-    server.listen(config.server.port || 3000, async () => {
+    server.listen(Application.getConfig().server.port || 3000, async () => {
         let enableCli : boolean = Application.isCliEnabled();
-        logger.info(`${enableCli ? "🌐 " : ""}Web server listening on http://0.0.0.0:${config.server.port}/`);
+            logger.info(`${enableCli ? "🌐 " : ""}Web server listening on http://0.0.0.0:${Application.getConfig().server.port}/`);
         if(enableCli) await cli.initialize();
     });
 

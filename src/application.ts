@@ -1,12 +1,15 @@
 import {promises as fs, Stats} from "fs";
 import Module, {ModuleAuthor, ModuleMetadata, ModuleType} from "./struct/Module";
 import P = require("pino");
+import RoverConfig from "./struct/Config";
 
 export enum Utility {
     Logger
 }
 
 export default class Application {
+
+    private config: RoverConfig;
 
     private modules: Array<Module>;
     private properties: Map<string, any>;
@@ -23,6 +26,15 @@ export default class Application {
     public static getInstance(): Application {
         if(this.instance == null) this.instance = new Application();
         return this.instance;
+    }
+
+    public static configure(config: RoverConfig) : void {
+        if(this.getInstance().config != null) throw new Error("Application is already configured. You cannot configure it again.");
+        this.getInstance().config = config;
+    }
+
+    public static getConfig() : RoverConfig {
+        return this.getInstance().config;
     }
 
     public static get<T>(name: string){

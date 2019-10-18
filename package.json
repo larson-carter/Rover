@@ -31,6 +31,7 @@
   "dependencies": {
     "@types/cheerio": "^0.22.13",
     "@types/figlet": "^1.2.0",
+    "@types/mongoose": "^5.5.20",
     "@types/qs": "^6.5.3",
     "@types/response-time": "^2.3.3",
     "@types/sntp": "^3.0.0",
@@ -45,6 +46,7 @@
     "express-pino-logger": "^4.0.0",
     "fast-xml-parser": "^3.12.20",
     "figlet": "^1.2.3",
+    "mongoose": "^5.7.4",
     "ora": "^4.0.1",
     "os-utils": "0.0.14",
     "qs": "^6.8.0",
