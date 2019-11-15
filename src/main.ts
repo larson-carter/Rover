@@ -93,7 +93,7 @@ import getPrototypeOf = Reflect.getPrototypeOf;
 
     server.listen(Application.getConfig().server.port || 3000, async () => {
         let enableCli : boolean = Application.isCliEnabled();
-            logger.info(`${enableCli ? "🌐 " : ""}Web server listening on http://0.0.0.0:${Application.getConfig().server.port}/`);
+        logger.info(`${enableCli ? "🌐 " : ""}Web server listening on http://0.0.0.0:${Application.getConfig().server.port}/`);
         if(enableCli) await cli.initialize();
     });
 

@@ -15,6 +15,10 @@ export default () : RoverConfig => ({
 
     database: {
         url: "mongodb://127.0.0.1:27017/rover"
+    },
+    
+    integrations: {
+        tmdbKey: ""
     }
 
 });

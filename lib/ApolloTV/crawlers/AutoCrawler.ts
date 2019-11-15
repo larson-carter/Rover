@@ -18,7 +18,7 @@ export default class AutoCrawler extends Module {
 
     initialize() : void {
         this.setStatus("Running");
-        this.childProcess = spawn('ts-node', [`${__dirname}/${AUTO_CRAWLER_PROC_DIR}/index.ts`, `--db=${Application.getConfig().database.url}`], {
+        this.childProcess = spawn('ts-node', [`${__dirname}/${AUTO_CRAWLER_PROC_DIR}/index.ts`, `--config=${Buffer.from(JSON.stringify(Application.getConfig())).toString('base64')}`], {
             stdio: [null, process.stdout, process.stderr]
         });
 
